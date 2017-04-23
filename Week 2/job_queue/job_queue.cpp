@@ -1,11 +1,28 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <queue>
 
 using std::vector;
 using std::cin;
 using std::cout;
 
+struct Processor {
+  Processor(int index, long long available_time): 
+    index(index), available_time(available_time)
+  {}
+  long long available_time;
+  int index;
+};
+struct GreaterThanByTime {
+  bool operator()(const Processor& lhs, const Processor& rhs) const {
+    if (lhs.available_time == rhs.available_time) {
+      return lhs.index > rhs.index;
+    } else {
+      return lhs.available_time > rhs.available_time;
+    }
+  }
+};
 class JobQueue {
  private:
   int num_workers_;
@@ -29,20 +46,20 @@ class JobQueue {
   }
 
   void AssignJobs() {
-    // TODO: replace this code with a faster algorithm.
     assigned_workers_.resize(jobs_.size());
     start_times_.resize(jobs_.size());
-    vector<long long> next_free_time(num_workers_, 0);
-    for (int i = 0; i < jobs_.size(); ++i) {
-      int duration = jobs_[i];
-      int next_worker = 0;
-      for (int j = 0; j < num_workers_; ++j) {
-        if (next_free_time[j] < next_free_time[next_worker])
-          next_worker = j;
-      }
-      assigned_workers_[i] = next_worker;
-      start_times_[i] = next_free_time[next_worker];
-      next_free_time[next_worker] += duration;
+
+    std::priority_queue<Processor, std::vector<Processor>, GreaterThanByTime> p; // processors
+    for (int i = 0; i < num_workers_; i++) { 
+      p.push(Processor(i, 0));
+    }
+
+    for (int i = 0; i < jobs_.size(); i++) {
+      Processor c = p.top();
+      p.pop();
+      assigned_workers_[i] = c.index;
+      start_times_[i] = c.available_time;
+      p.push(Processor(c.index, c.available_time+jobs_[i]));
     }
   }
 
