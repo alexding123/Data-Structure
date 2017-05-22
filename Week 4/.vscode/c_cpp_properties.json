@@ -3,31 +3,35 @@
         {
             "name": "Mac",
             "includePath": [
+                "${workspaceRoot}",
                 "/usr/include",
                 "/usr/local/include"
             ],
+            "defines": [],
             "browse": {
-                "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": "",
                 "path": [
                     "/usr/include",
                     "/usr/local/include"
-                ]
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
             }
         },
         {
             "name": "Linux",
             "includePath": [
+                "${workspaceRoot}",
                 "/usr/include",
                 "/usr/local/include"
             ],
+            "defines": [],
             "browse": {
-                "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": "",
                 "path": [
                     "/usr/include",
                     "/usr/local/include"
-                ]
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
             }
         },
         {
@@ -35,12 +39,16 @@
             "includePath": [
                 "C:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/include/*"
             ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE"
+            ],
             "browse": {
-                "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": "",
                 "path": [
                     "C:/Program Files (x86)/Microsoft Visual Studio 12.0/VC/include/*"
-                ]
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
             }
         }
     ]
